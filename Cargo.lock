@@ -2241,7 +2241,9 @@ dependencies = [
 name = "gpui-test"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "gpui",
+ "rust-embed",
  "settings",
 ]
 

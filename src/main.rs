@@ -1,4 +1,7 @@
+mod assets;
+use assets::*;
 use gpui::*;
+use settings::KeymapFile;
 
 struct HelloWorld {
     text: SharedString,
@@ -24,12 +27,14 @@ impl Render for HelloWorld {
 actions!(ford, [Quit]);
 
 fn main() {
-    App::new().run(|cx: &mut AppContext| {
+    App::new().with_assets(Assets).run(|cx: &mut AppContext| {
         let bounds = Bounds::centered(None, size(px(300.0), px(300.0)), cx);
         settings::init(cx);
         cx.activate(true);
         cx.on_action(|_: &Quit, cx| cx.quit());
         cx.bind_keys([KeyBinding::new("cmd-q", Quit, None)]);
+
+        load_storybook_keymap(cx);
 
         cx.open_window(
             WindowOptions {
@@ -44,4 +49,8 @@ fn main() {
         )
         .unwrap();
     });
+}
+
+fn load_storybook_keymap(cx: &mut AppContext) {
+    KeymapFile::load_asset("keymaps/storybook.json", cx).unwrap();
 }
