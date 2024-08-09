@@ -1,31 +1,13 @@
-use std::borrow::Cow;
-
 use anyhow::{anyhow, Result};
 use gpui::{AssetSource, SharedString};
 use rust_embed::RustEmbed;
+use std::borrow::Cow;
 
 #[derive(RustEmbed)]
 #[folder = "assets"]
 #[include = "icons/**/*"]
 #[exclude = "*.DS_Store"]
 pub struct Assets;
-
-/*
-
-#[derive(RustEmbed)]
-#[folder = "../../assets"]
-#[include = "fonts/**/
-*"]
-#[include = "icons /**/
-*"]
-#[include = "themes /**/
-*"]
-#[include = "sounds /**/
-*"]
-#[include = "*.md"]
-#[exclude = "*.DS_Store"]
-pub struct Assets;
-*/
 
 impl AssetSource for Assets {
     fn load(&self, path: &str) -> Result<Option<Cow<'static, [u8]>>> {
